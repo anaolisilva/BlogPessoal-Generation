@@ -20,7 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import br.generation.anaoliveira.blogpessoal.model.Postagem;
 import br.generation.anaoliveira.blogpessoal.repository.PostagemRepository;
 
-//Classe Controller se comunica com o cliente, é como se fosse um porteiro direcionador, 
+//Classe Controller se comunica com o cliente; é como se fosse um porteiro direcionador, 
 //controla os requests que vem e as respostas que são dadas.
 
 @RestController
@@ -34,7 +34,7 @@ public class PostagemController {
 	
 	@GetMapping
 	public ResponseEntity<List<Postagem>> GetAll (){ //Pode trocar esse nome GetAll, não tem problema. Ele é personalizável.
-		return ResponseEntity.ok(PostagemRepository.findAll()); // OK = 200 } 
+		return ResponseEntity.ok(PostagemRepository.findAll()); // OK = 200
 	} //O verdinho claro (findAll) aqui não pode trocar o nome porque é um método do próprio repository, herdado automaticamente.
 	
 	
