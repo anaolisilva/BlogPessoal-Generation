@@ -2,9 +2,18 @@ package br.generation.anaoliveira.blogpessoal.model;
 
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_postagem")
@@ -14,7 +23,7 @@ public class Postagem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //Define o auto_increment com a estratégia "GenerationType.IDENTITY" pré definida.
 	private long id;
 	
-	@NotNull //Define que não pode ser nulo
+	@NotNull (message = "Você precisa digitar um título!") //Define que não pode ser nulo
 	@Size(min = 2, max = 100) //Definindo tamanho do título com mínimo e máximo
 	private String titulo;
 	
@@ -24,6 +33,10 @@ public class Postagem {
 	
 	@Temporal(TemporalType.TIMESTAMP) //método pelo qual vai pegar a data da postagem (é como se fosse um 'preencher automático' também?)
 	private Date data = new java.sql.Date(System.currentTimeMillis());
+	
+	@ManyToOne
+	@JsonIgnoreProperties("postagens")
+	private Tema tema;
 
 
 	public long getId() {
@@ -63,6 +76,16 @@ public class Postagem {
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+
+
+	public Tema getTema() {
+		return tema;
+	}
+
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
 	
 	
