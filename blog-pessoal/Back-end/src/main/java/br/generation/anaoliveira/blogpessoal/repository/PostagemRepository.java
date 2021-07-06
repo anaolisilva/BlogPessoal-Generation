@@ -18,4 +18,6 @@ public interface PostagemRepository extends JpaRepository<Postagem, Long> { //Ex
 	//que, quando combinadas, já dizem o que fazer (o JPA entende e já aplica o método combinado).
 	//É um método personalizado, feito a partir das method queries.
 	
+	public List<Postagem> findAllByUsuario_usuarioIgnoreCase(String usuario);
+	
 }

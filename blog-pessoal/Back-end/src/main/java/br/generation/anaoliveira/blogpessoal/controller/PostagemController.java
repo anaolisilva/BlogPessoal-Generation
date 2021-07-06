@@ -52,6 +52,11 @@ public class PostagemController {
 		
 	}
 	
+	@GetMapping("/usuario/{usuario}")
+	public ResponseEntity<List<Postagem>> getByUsuario (@PathVariable String usuario){
+		return ResponseEntity.ok(PostagemRepository.findAllByUsuario_usuarioIgnoreCase(usuario));
+	} //Lista todas as postagens por usuário.
+	
 	@PostMapping
 	public ResponseEntity<Postagem> criarPostagem (@RequestBody Postagem postagem){
 		return ResponseEntity.status(HttpStatus.CREATED).body(PostagemRepository.save(postagem));
