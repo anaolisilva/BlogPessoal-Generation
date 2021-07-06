@@ -31,12 +31,16 @@ public class Postagem {
 	@Size(min = 10, max = 600)
 	private String corpo;
 	
-	@Temporal(TemporalType.TIMESTAMP) //método pelo qual vai pegar a data da postagem (é como se fosse um 'preencher automático' também?)
+	@Temporal(TemporalType.TIMESTAMP) //método pelo qual vai pegar a data da postagem (é como se fosse um 'preencher automático' também.)
 	private Date data = new java.sql.Date(System.currentTimeMillis());
 	
 	@ManyToOne
 	@JsonIgnoreProperties("postagens")
 	private Tema tema;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("postagens")
+	private Usuario usuario;
 
 
 	public long getId() {
@@ -86,6 +90,16 @@ public class Postagem {
 
 	public void setTema(Tema tema) {
 		this.tema = tema;
+	}
+
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	
