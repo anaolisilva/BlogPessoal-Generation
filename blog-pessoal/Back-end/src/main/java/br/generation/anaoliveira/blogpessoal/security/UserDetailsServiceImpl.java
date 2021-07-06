@@ -17,10 +17,14 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername (String userName) throws UsernameNotFoundException {
-		Optional<Usuario> user = usuarioRepository.findByUsuario(userName);
-		user.orElseThrow(() -> new UsernameNotFoundException(userName + " not found."));
+		
+		Optional<Usuario> usuario = usuarioRepository.findByUsuario(userName);
+		
+		usuario.orElseThrow(() -> new UsernameNotFoundException(userName + " not found."));
 
-		return user.map(UserDetailsImpl::new).get(); //nossa esse aqui não entendi bulhufas
+		return usuario.map(UserDetailsImpl::new).get();
+		
+		//Novo objeto da classe UserDetailsImpl com as informações que ele encontrou no banco (user e senha) Como se fizesse uma cópia
 	}
 	
 	

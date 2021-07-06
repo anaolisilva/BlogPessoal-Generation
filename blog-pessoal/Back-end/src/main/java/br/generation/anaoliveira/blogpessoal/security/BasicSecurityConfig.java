@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -17,11 +16,11 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 	//precisa de fato ser esse nome específico(BasicSecurityConfig)? Ou é pra gente se organizar?
 	
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private UserDetailsServiceImpl service;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService);
+		auth.userDetailsService(service);
 		
 	}
 	
@@ -37,7 +36,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/usuarios/cadastrar").permitAll()
 		.anyRequest().authenticated()
 		.and().httpBasic()
-		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //essa linha define a compliance com a arquitetura SOFEA e outra. A sessão criada não guarda objetos, guarda status de objetos.
+		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //essa linha define a compliance com a arquitetura REST e outra. A sessão criada não guarda objetos, guarda status de objetos.
 		.and().cors()//o que significa habilitar o cors? kk
 		.and().csrf().disable();
 	}
