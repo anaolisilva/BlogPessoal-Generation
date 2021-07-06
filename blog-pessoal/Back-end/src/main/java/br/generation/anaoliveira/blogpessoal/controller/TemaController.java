@@ -28,7 +28,7 @@ public class TemaController {
 	private TemaRepository temaRepository;
 	
 	@GetMapping
-	public ResponseEntity<List<Tema>> getAll(){
+	public ResponseEntity<List<Tema>> buscarTodos(){
 		return ResponseEntity.ok(temaRepository.findAll());
 	}
 	
@@ -44,7 +44,7 @@ public class TemaController {
 		return ResponseEntity.ok(temaRepository.findAllByDescricaoContainingIgnoreCase(descricao));
 	}
 	
-	@PostMapping
+	@PostMapping("/novo")
 	public ResponseEntity<Tema> cadastrarTema (@RequestBody Tema tema){
 		return ResponseEntity.status(HttpStatus.CREATED).body(temaRepository.save(tema));
 	}

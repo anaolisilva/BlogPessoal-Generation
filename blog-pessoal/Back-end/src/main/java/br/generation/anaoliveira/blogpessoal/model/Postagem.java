@@ -87,8 +87,7 @@ public class Postagem {
 	public void setTema(Tema tema) {
 		this.tema = tema;
 	}
-	
-	
+
 	
 
 }
