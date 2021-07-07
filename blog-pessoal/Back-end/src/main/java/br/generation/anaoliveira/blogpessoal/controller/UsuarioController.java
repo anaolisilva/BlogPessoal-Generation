@@ -44,10 +44,16 @@ public class UsuarioController {
 	
 	@PostMapping("/cadastrar")
 	public ResponseEntity<Usuario> cadastrarUsuario (@RequestBody Usuario usuario){
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrarUsuario(usuario));
+		Optional<Usuario> novoUsuario = service.cadastrarUsuario(usuario);
+		try {
+			return ResponseEntity.ok(novoUsuario.get());
+	} catch (Exception e) {
+		return ResponseEntity.badRequest().build(); //Qual é o erro que ele tá pegando aqui? É o caso de a ResponseEntity der errado?
+													//Isso é definido por esse método get ou se relaciona com os erros definidos lá na service?
+	}
 	}
 	
-	@GetMapping("/all")
+	@GetMapping("/todos")
 	public ResponseEntity<List<Usuario>> getAll() {
 		return ResponseEntity.ok(usuarioRepository.findAll());
 	}

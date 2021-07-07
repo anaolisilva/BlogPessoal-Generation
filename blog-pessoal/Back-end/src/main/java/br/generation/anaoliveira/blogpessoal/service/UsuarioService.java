@@ -20,15 +20,20 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository repository;
 
-	// Esse método criptografa a senha do usuário.
-	public Usuario cadastrarUsuario(Usuario usuario) {
+	// Esse método criptografa a senha do usuário no cadastro.
+	public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
+		
+		if(repository.findByUsuario(usuario.getUsuario()).isPresent())
+			throw new ResponseStatusException(
+				HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
+		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 		String senhaEncoder = encoder.encode(usuario.getSenha());
 
 		usuario.setSenha(senhaEncoder);
 
-		return repository.save(usuario);
+		return Optional.of(repository.save(usuario));
 	}
 
 	public Optional<UsuarioLogin> logarUsuario (Optional<UsuarioLogin> user) {
@@ -48,8 +53,9 @@ public class UsuarioService {
 				user.get().setToken(authHeader);
 
 				user.get().setNome(usuario.get().getNome()); // Essa coisa do ponto depois de ponto ainda me deixa muito
-																// confusa
-
+																// confusa. Pelo que entendi esse primeiro .get() vem do Optional. (confirmar)
+																//É isso mesmo, tem a ver com o instanciamento do objeto. Como ele é Optional, primeiro ele precisa verificar 
+																//se o objeto existe e quais são os valores dele (por meio do.get()).
 				return user;
 			}
 		}

@@ -11,6 +11,8 @@ import br.generation.anaoliveira.blogpessoal.repository.UsuarioRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
+	//Nesse caso, ela vai aplicar os detalhes dos serviços (aqui, é só o login.
+	//Ela é chamada lá na Basic Security Config, por exemplo.
 	
 	@Autowired 
 	private UsuarioRepository usuarioRepository;

@@ -13,8 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity //Indica que é uma classe de Configuração de Segurança do Spring
 public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	//precisa de fato ser esse nome específico(BasicSecurityConfig)? Ou é pra gente se organizar?
-	
 	@Autowired
 	private UserDetailsServiceImpl service;
 	
@@ -36,8 +34,9 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/usuarios/cadastrar").permitAll()
 		.anyRequest().authenticated()
 		.and().httpBasic()
-		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //essa linha define a compliance com a arquitetura REST e outra. A sessão criada não guarda objetos, guarda status de objetos.
-		.and().cors()//o que significa habilitar o cors? kk
+		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //essa linha define a compliance com a arquitetura REST e outra. 
+																						//A sessão criada não guarda objetos, guarda status de objetos.
+		.and().cors()//cors = cross origins research sessions --> habilita o cross origins.
 		.and().csrf().disable();
 	}
 
