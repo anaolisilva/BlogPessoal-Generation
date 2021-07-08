@@ -27,6 +27,10 @@ public class UsuarioService {
 			throw new ResponseStatusException(
 				HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
 		
+		if(repository.findByEmail(usuario.getEmail()).isPresent())
+			throw new ResponseStatusException(
+				HttpStatus.BAD_REQUEST, "E-mail já existe!", null);
+		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 		String senhaEncoder = encoder.encode(usuario.getSenha());
