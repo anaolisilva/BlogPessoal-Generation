@@ -61,7 +61,7 @@ public class UsuarioTest {
 
 		usuarioErro.setEmail("aloaloriodejaneiro@aqueleabraco.com");
 
-		Set<ConstraintViolation<Usuario>> violations = validator.validate(usuario);
+		Set<ConstraintViolation<Usuario>> violations = validator.validate(usuarioErro);
 
 		System.out.println(violations.toString());
 
