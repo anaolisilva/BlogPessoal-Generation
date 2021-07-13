@@ -31,7 +31,8 @@ public class UsuarioTest {
 				// dados:
 	public void start() {
 		usuario = new Usuario(null, "João", "joaozinhoxx", "xxjoao@email.com", "xx1234"); 
-		//O teste da Model não se usa o banco de dados. Por isso o nulo funciona.
+		//O teste da Model não usa o banco de dados. Por isso o nulo funciona.
+		
 		usuarioErro = new Usuario();
 	}
 
@@ -43,9 +44,10 @@ public class UsuarioTest {
 		usuario.setEmail("joao@email.com");
 		usuario.setSenha("12345"); // Muda os atributos dados anteriormente para verificar se as funções set estão
 									// funcionando.
-		// Nesse caso ele não criptografa a senha como no postman, né? No front a gente
-		// garante que isso vai acontecer?
-
+		// Nesse caso ele não criptografa a senha como no postman, porque não é feita uma *requisição* para salvar o
+		//usuário, ele salva do modo "raiz".
+		
+		
 		// Armazena lista de mensagens de erro de validação do teste da model.
 		Set<ConstraintViolation<Usuario>> violations = validator.validate(usuario);
 

@@ -21,7 +21,8 @@ public class UsuarioService {
 	private UsuarioRepository repository;
 
 	// Esse método criptografa a senha do usuário no cadastro.
-	public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
+
+	public Usuario cadastrarUsuario(Usuario usuario) {
 		
 		if(repository.findByUsuario(usuario.getUsuario()).isPresent())
 			throw new ResponseStatusException(
@@ -37,7 +38,7 @@ public class UsuarioService {
 
 		usuario.setSenha(senhaEncoder);
 
-		return Optional.of(repository.save(usuario));
+		return repository.save(usuario);
 	}
 
 	public Optional<UsuarioLogin> logarUsuario (Optional<UsuarioLogin> user) {

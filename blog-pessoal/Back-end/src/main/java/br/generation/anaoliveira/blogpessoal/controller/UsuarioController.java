@@ -44,12 +44,13 @@ public class UsuarioController {
 	
 	@PostMapping("/cadastrar")
 	public ResponseEntity<Usuario> cadastrarUsuario (@RequestBody Usuario usuario){
-		Optional<Usuario> novoUsuario = service.cadastrarUsuario(usuario);
+		Usuario novoUsuario = service.cadastrarUsuario(usuario);
+		
 		try {
-			return ResponseEntity.ok(novoUsuario.get());
+			return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
 	} catch (Exception e) {
-		return ResponseEntity.badRequest().build(); //Qual é o erro que ele tá pegando aqui? É o caso de a ResponseEntity der errado?
-													//Isso é definido por esse método get ou se relaciona com os erros definidos lá na service?
+		return ResponseEntity.badRequest().build(); //Aqui ele tenta salvar o usuário. Caso dê algum erro (tipo usuário nulo), ele retorna o erro.
+										
 	}
 	}
 	

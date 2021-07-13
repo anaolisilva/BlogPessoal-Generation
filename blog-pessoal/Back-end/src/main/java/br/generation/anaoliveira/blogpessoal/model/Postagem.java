@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -33,6 +34,9 @@ public class Postagem {
 	
 	@Temporal(TemporalType.TIMESTAMP) //método pelo qual vai pegar a data da postagem (é como se fosse um 'preencher automático' também.)
 	private Date data = new java.sql.Date(System.currentTimeMillis());
+	
+	@PositiveOrZero
+	private int curtidas;
 	
 	@ManyToOne
 	@JsonIgnoreProperties("postagens")
@@ -102,6 +106,15 @@ public class Postagem {
 		this.usuario = usuario;
 	}
 
-	
+
+	public int getCurtidas() {
+		return curtidas;
+	}
+
+
+	public void setCurtidas(int curtidas) {
+		this.curtidas = curtidas;
+	}
+
 
 }

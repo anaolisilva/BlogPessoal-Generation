@@ -20,4 +20,6 @@ public interface PostagemRepository extends JpaRepository<Postagem, Long> { //Ex
 	
 	public List<Postagem> findAllByUsuario_usuarioIgnoreCase(String usuario);
 	
+	//public List<Postagem> findAllOrderByCurtidas ();
+	
 }
