@@ -71,6 +71,8 @@ public class UsuarioService {
 	public Optional<Usuario> atualizarUsuario(Usuario usuario){
 		
 		if(repository.findById(usuario.getId()).isPresent()) {
+			
+			//implementar depois verificação de e-mail e se o usuário encontrado é o mesmo que o alterado (código rafa)
 					
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			

@@ -21,7 +21,7 @@ public class Usuario {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private long id;
 	
 	@Size(min = 2, max = 100)
 	private String nome;
