@@ -1,0 +1,20 @@
+.rede-social {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul.rede-social li {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+.fa {
+  color: white;
+  font-size: 1.2rem;
+  padding: 0 1% 0 1%;
+}
+
+.fundo {
+  background-color: rgba(70, 70, 70, 0.404);
+}

@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+.overflow-x-hidden{
+  overflow-x: hidden;
+}
+.w-35 {
+  width: 35%;
+}
+
+.creditos-fotos a {
+  color: white;
+  transition: 0.3s;
+}
+
+.creditos-fotos a:hover{
+  color: rgb(71, 71, 71);
+}

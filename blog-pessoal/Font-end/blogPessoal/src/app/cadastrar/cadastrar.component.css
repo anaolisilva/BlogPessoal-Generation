@@ -1,0 +1,26 @@
+.fundo {
+  background-image: url('../../assets/img/fundocadastrar02.jpg') ;
+  background-position:center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#cadastrar {
+  background-color: rgba(0, 0, 0, 0.411);
+}
+
+.h-96 {
+  height: 96.6%;
+}
+
+.highlight {
+  background-color: rgba(20, 40, 220, 0.438);
+}
+
+.link a {
+  color: white;
+  transition: 0.3s;
+}
+.link a:hover{
+  color: rgb(71, 71, 71);
+}
