@@ -34,7 +34,7 @@ export class LogarComponent implements OnInit {
       environment.tipo = this.usuarioLogin.tipo
 
 
-      this.router.navigate(['/inicio'])
+      this.router.navigate(['/home'])
 
     }, erro => {
       if(erro.status == 500) {

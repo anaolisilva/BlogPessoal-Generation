@@ -7,31 +7,31 @@
         <form class="text-white d-grid gap-3 ">
           <div class="mb-3">
             <label for="InputNome" class="form-label highlight px-1">Nome</label>
-            <input [(ngModel)]='usuario.nome' type="text" class="form-control" id="InputNome" placeholder="Ada Lovelace" >
+            <input [(ngModel)]='usuario.nome' type="text" class="form-control" id="InputNome" placeholder="Ada Lovelace" name="nome">
           </div>
           <div class="mb-3">
-            <label [(ngModel)]='usuario.usuario' for="InputUsuario" class="form-label highlight px-1">Usuário</label>
-            <input type="text" class="form-control" id="InputUsuario" placeholder="ada-escreveu">
+            <label for="InputUsuario" class="form-label highlight px-1">Usuário</label>
+            <input [(ngModel)]='usuario.usuario' type="text" class="form-control" id="InputUsuario" placeholder="ada-escreveu" name="usuario">
           </div>
           <div class="mb-3">
-            <label [(ngModel)]='usuario.email' for="InputEmail" class="form-label highlight px-1">E-mail</label>
-            <input type="email" class="form-control" id="InputEmail" placeholder="oprimeiro@algoritmo.com">
+            <label for="InputEmail" class="form-label highlight px-1">E-mail</label>
+            <input [(ngModel)]='usuario.email' type="email" class="form-control" id="InputEmail" placeholder="oprimeiro@algoritmo.com" name="email">
           </div>
           <div class="mb-3">
-            <label (input)='confirmarSenha($event)' for="InputPassword" class="form-label highlight px-1">Senha</label>
-            <input type="password" class="form-control" id="InputPassword" placeholder="aS5rPr0cessado">
+            <label for="InputPassword"  class="form-label highlight px-1">Senha</label>
+            <input (input)='confirmarSenha($event)' type="password" class="form-control" id="InputPassword" placeholder="aS5rPr0cessado" name="senha">
           </div>
           <div class="mb-3">
-            <label [(ngModel)]='usuario.senha' for="InputConfirmPassword" class="form-label highlight px-1">Confirmar senha</label>
-            <input type="password" class="form-control" id="ConfirmPassword" placeholder="aS5rPr0cessado">
+            <label for="InputConfirmPassword" class="form-label highlight px-1">Confirmar senha</label>
+            <input [(ngModel)]='usuario.senha' type="password" class="form-control" id="ConfirmPassword" placeholder="aS5rPr0cessado" name="ConfirmarSenha">
           </div>
           <div class="mb-3">
-            <label [(ngModel)]='usuario.foto' for="InputFoto" class="form-label highlight px-1">Link da foto de perfil</label>
-            <input type="text" class="form-control" id="InputFoto" placeholder="img.com/porumamaquina.jpg">
+            <label for="InputFoto" class="form-label highlight px-1">Link da foto de perfil</label>
+            <input [(ngModel)]='usuario.foto' type="text" class="form-control" id="InputFoto" placeholder="img.com/porumamaquina.jpg" name="Foto">
           </div>
           <div class="mb-3">
             <label for="tipoUsuario" class="form-label highlight px-1">Tipo de usuário</label>
-            <select class="form-select" id="tipoUsuario" (change)='tipoUsuario'>
+            <select class="form-select" id="tipoUsuario" (change)='defineTipoUsuario($event)'>
               <option>Selecione um tipo de usuário</option>
               <option value="regular">Regular</option>
               <option value="admin">Administrador</option>
