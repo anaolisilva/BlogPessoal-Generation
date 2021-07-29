@@ -47,9 +47,7 @@ public class UsuarioService {
 		Optional<Usuario> usuario = repository.findByUsuario(user.get().getUsuario());
 
 		if (usuario.isPresent()) {
-			if (encoder.matches(user.get().getSenha(), usuario.get().getSenha())) { // compara senha encriptada no
-																					// cadastro do usuário com a senha
-																					// não encriptada
+			if (encoder.matches(user.get().getSenha(), usuario.get().getSenha())) { // compara senha encriptada no cadastro do usuário com a senha não encriptada
 
 				String auth = user.get().getUsuario() + ":" + user.get().getSenha();
 				byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
@@ -57,10 +55,13 @@ public class UsuarioService {
 
 				user.get().setToken(authHeader);
 
-				user.get().setNome(usuario.get().getNome()); // Essa coisa do ponto depois de ponto ainda me deixa muito
-																// confusa. Pelo que entendi esse primeiro .get() vem do Optional. (confirmar)
-																//É isso mesmo, tem a ver com o instanciamento do objeto. Como ele é Optional, primeiro ele precisa verificar 
-																//se o objeto existe e quais são os valores dele (por meio do.get()).
+				user.get().setNome(usuario.get().getNome()); // Essa coisa do ponto depois de ponto ainda me deixa muito confusa. Pelo que entendi esse primeiro .get() vem do Optional. (confirmar)
+				//É isso mesmo, tem a ver com o instanciamento do objeto. Como ele é Optional, primeiro ele precisa verificar se o objeto existe e quais são os valores dele (por meio do.get()).
+				user.get().setId(usuario.get().getId());
+				user.get().setFoto(usuario.get().getFoto());
+				user.get().setTipo(usuario.get().getTipo());
+				user.get().setUsuario(usuario.get().getUsuario());
+				user.get().setEmail(usuario.get().getEmail());
 				return user;
 			}
 		}
