@@ -9,12 +9,12 @@
           <div class="w-75">
             <form class="px-3 pb-3">
               <div class="mb-3">
-                <label for="InputEmail" class="form-label">E-mail</label>
-                <input type="email" class="form-control" id="InputEmail1">
+                <label for="InputUsuario" class="form-label">Usuário</label>
+                <input [(ngModel)]='usuarioLogin.usuario' type="text" class="form-control" id="InputUsuario">
               </div>
               <div class="mb-3">
                 <label for="InputPassword" class="form-label">Senha</label>
-                <input type="password" class="form-control" id="InputPassword">
+                <input [(ngModel)]='usuarioLogin.senha' type="password" class="form-control" id="InputPassword">
               </div>
               <button type="submit" class="mt-2 btn btn-light">Entrar</button>
             </form>
