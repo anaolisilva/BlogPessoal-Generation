@@ -14,3 +14,11 @@
 .creditos-fotos a:hover{
   color: rgb(71, 71, 71);
 }
+
+.fs-xxl {
+  font-size: 7rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
