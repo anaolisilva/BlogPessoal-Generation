@@ -17,63 +17,77 @@
       </div>
     </div>
   </div>
-
-
-
-
-
-
 </div>
 
 
-<div class="container mx-auto row d-flex justify-content-around">
+<div class="container-fluid row d-flex justify-content-center p-0">
 
-  <div class="col-md-5 my-5">
+  <div class="col-md-6 my-5">
     <div class="row my-2">
       <h2 class="col-12 text-center">Cadastre um novo tema:</h2>
     </div>
-    <div class="row">
-      <form action="">
-        <input type="text" class="form-control" id="descricao" placeholder="Digite a descrição do tema">
+    <div class="row px-5 mx-2">
+      <form>
+        <input [(ngModel)]='tema.descricao' type="text" class="form-control" id="descricao" name="descricao"
+          placeholder="Digite a descrição do tema">
         <div class="d-flex justify-content-center">
-          <button class="btn btn-dark my-3">Cadastrar</button>
+          <button class="btn btn-dark my-3" (click)='novoTema()'>Cadastrar</button>
         </div>
       </form>
     </div>
   </div>
 
-  <div class="col-1 border-start ms-5"></div>
+  <!-- <div class="col-1  ms-5"></div>style="margin-left: -2.5%;"" -->
 
-  <div class="col-md-5 mt-2" style="margin-left: -2.5%;">
-    <div class="row my-2">
+  <div class="col-md-6 mt-2 border-start px-5 mx-auto">
+    <div class="row my-2 mx-auto">
       <h2 class="text-center">Todos os temas:</h2>
     </div>
-    <div class="row">
+    <div class="row mx-auto">
       <table class="table table-warning table-hover">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">Id</th>
             <th scope="col">Descrição</th>
-            <th scope="col">Criador</th>
+            <th scope="col" class="text-end">Alterar</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
+          <tr *ngFor='let item of listaTemas'>
+            <!-- O que tá em roxo é o obrigatório do ngFor. -->
+            <td>{{item.id}}</td>
+            <td>{{item.descricao}}</td>
+            <td class="d-flex justify-content-end">
+              <button (click)='findByIdTemaEdit(item.id)' class="btn btn-warning me-3" data-bs-toggle="modal" data-bs-target="#EditTema">Editar</button>
+              <button class="btn btn-dark" [routerLink]="['/tema-del', item.id]" >Apagar</button>
+            </td>
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: editar tema -->
+<div class="modal fade" id="EditTema" tabindex="-1" aria-labelledby="EditTema" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="EditeoTema">Edite o tema</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição do tema</label>
+            <input [(ngModel)]='temaEdit.descricao' type="text" class="form-control" id="alt-descricao" aria-describedby="alt-descricao" name="alt-descricao">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" data-bs-dismiss="modal" class="btn btn-outline-success" (click)='atualizarTema(temaEdit.id)'>Salvar mudanças</button>
+      </div>
     </div>
   </div>
 </div>

@@ -11,8 +11,7 @@ import { AuthService } from '../service/auth.service';
 })
 export class LogarComponent implements OnInit {
 
-  usuarioLogin: UserLogin = new UserLogin
-
+  usuarioLogin: UserLogin = new UserLogin()
 
   constructor(
     private auth: AuthService,
