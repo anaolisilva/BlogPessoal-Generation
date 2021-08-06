@@ -26,20 +26,83 @@
 <div class="container my-5" id="postagens">
   <nav>
     <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
-      <button class="nav-link active fw-bold" id="nav-todasPostagens-tab" data-bs-toggle="tab" data-bs-target="#todasPostagens" type="button" role="tab" aria-controls="nav-todasPostagens" aria-selected="true">Todas as postagens</button>
-      <button class="nav-link fw-bold" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Minhas postagens</button>
-      <button class="nav-link fw-bold" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Postagens por tema</button>
+      <button class="nav-link active fw-bold" id="nav-todasPostagens-tab" data-bs-toggle="tab"
+        data-bs-target="#todasPostagens" type="button" role="tab" aria-controls="nav-todasPostagens"
+        aria-selected="true">Todas as postagens</button>
+
+      <button (click)='findUsuarioById()' class="nav-link fw-bold" id="nav-minhasPostagens-tab" data-bs-toggle="tab"
+        data-bs-target="#minhasPostagens" type="button" role="tab" aria-controls="nav-minhasPostagens"
+        aria-selected="false">Minhas postagens</button>
+
+      <button class="nav-link fw-bold" id="nav-posts-tema-tab" data-bs-toggle="tab" data-bs-target="#posts-tema"
+        type="button" role="tab" aria-controls="posts-tema" aria-selected="false">Postagens por tema</button>
     </div>
   </nav>
+
+  <!-- Todas as postagens -->
   <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="todasPostagens" role="tabpanel" aria-labelledby="nav-todasPostagens-tab">
-      lalalalala
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+          <div class="card mt-3 me-3" *ngFor='let item of todasPostagens'>
+            <div class="card-header"><em>autor(a): {{item.usuario.usuario}}</em></div>
+            <h5 class="card-title text-center">{{item.titulo}}</h5>
+            <hr>
+            <small><em>Tema: {{item.tema.descricao}}</em></small>
+            <p class="card-text text-justify">{{item.corpo}}.</p>
+            <div class="card-footer"><small>{{item.data | date: 'dd/MM/yyyy'}}</small></div>
+            <div class="d-flex m-2 text-end">
+              <a data-bs-toggle="modal" data-bs-target="#editarPostagem" class="text-info mx-3"
+                (click)='getPostagemById(item.id)'>Editar</a>
+              <a [routerLink]="['/postagem-del', item.id]" class="text-danger">Apagar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-<!-- fiz com o primeiro, alterar para o resto também. -->
 
-    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+    <!-- Postagens do próprio usuário -->
+    <div class="tab-pane fade" id="minhasPostagens" role="tabpanel" aria-labelledby="nav-minhasPostagens-tab">
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+          <div class="card mt-3 me-3" *ngFor='let item of usuario.postagens'>
+            <h5 class="card-title text-center">{{item.titulo}}</h5>
+            <hr>
+            <small><em>Tema: {{item.tema.descricao}}</em></small>
+            <p class="card-text text-justify">{{item.corpo}}.</p>
+            <div class="card-footer"><small>{{item.data | date: 'dd/MM/yyyy'}}</small></div>
+            <div class="d-flex m-2 text-end">
+              <a data-bs-toggle="modal" data-bs-target="#editarPostagem" class="text-info mx-3"
+                (click)='getPostagemById(item.id)'>Editar</a>
+              <a [routerLink]="['/postagem-del', item.id]" class="text-danger">Apagar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+    <!-- Postagens por tema -->
+    <div class="tab-pane fade" id="posts-tema" role="tabpanel" aria-labelledby="nav-posts-tema">
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+          <div class="card mt-3 me-3" *ngFor='let posts of tema.postagens'>
+            <div class="card-header"><em>autor(a): {{posts.usuario.usuario}}</em></div>
+            <h5 class="card-title text-center">{{posts.titulo}}</h5>
+            <hr>
+            <p class="card-text text-justify">{{posts.corpo}}.</p>
+            <div class="card-footer"><small>{{posts.data | date: 'dd/MM/yyyy'}}</small></div>
+            <div class="d-flex m-2 text-end">
+              <a data-bs-toggle="modal" data-bs-target="#editarPostagem" class="text-info mx-3"
+                (click)='getPostagemById(posts.id)'>Editar</a>
+              <a [routerLink]="['/postagem-del', posts.id]" class="text-danger">Apagar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
   </div>
 </div>
 
@@ -57,23 +120,68 @@
         <form>
           <div class="mb-3">
             <label for="titulo" class="form-label">Título</label>
-            <input type="text" class="form-control" id="titulo" aria-describedby="titulo" placeholder="Digite seu título">
+            <input [(ngModel)]='postagem.titulo' type="text" class="form-control" name="titulo" id="titulo"
+              aria-describedby="titulo" placeholder="Digite seu título">
           </div>
           <div class="mb-3">
             <label for="corpo" class="form-label">Corpo</label>
-            <textarea name="corpo" id="corpo" cols="30" rows="5" class="form-control"></textarea>
+            <textarea [(ngModel)]='postagem.corpo' name="corpo" id="corpo" cols="30" rows="5" class="form-control"
+              placeholder="O corpo da postagem deve ter no mínimo 10 caracteres."></textarea>
           </div>
           <div class="mb-3">
-            <label for="tema" class="form-label">Escolha um tema ou <a data-bs-dismiss="modal" routerLink="/tema">cadastre um novo</a>:</label>
-            <select name="tema" id="tema" class="form-control">
-              <option value="">Temas</option>
+            <label for="tema" class="form-label">Escolha um tema ou <a data-bs-dismiss="modal"
+                routerLink="/tema">cadastre um novo</a>:</label>
+            <select [(ngModel)]='idTema' name="tema" id="tema" class="form-select form-control"
+              (change)='findByIdTema()'>
+              <option *ngFor='let tema of listaTemas' value="{{tema.id}}">{{tema.descricao}}</option>
             </select>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Publicar</button>
+        <button type="button" data-bs-dismiss="modal" class="btn btn-primary" (click)='publicar()'>Publicar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal: editar postagem -->
+<div class="modal fade " id="editarPostagem" tabindex="-1" aria-labelledby="editarPostagemLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Postagem</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="titulo" class="form-label">Título</label>
+            <input [(ngModel)]='postagemEdit.titulo' type="text" class="form-control" name="titulo" id="titulo"
+              aria-describedby="titulo" placeholder="Digite seu título">
+          </div>
+          <div class="mb-3">
+            <label for="corpo" class="form-label">Corpo</label>
+            <textarea [(ngModel)]='postagemEdit.corpo' name="corpo" id="corpo" cols="30" rows="5" class="form-control"
+              placeholder="O corpo da postagem deve ter no mínimo 10 caracteres."></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="tema" class="form-label">Escolha um tema ou <a data-bs-dismiss="modal"
+                routerLink="/tema">cadastre um novo</a>:</label>
+            <select [(ngModel)]='idTema' name="tema" id="tema" class="form-select form-control"
+              (change)='findByIdTema()'>
+              <option *ngFor='let tema of listaTemas' value="{{tema.id}}">{{tema.descricao}}</option>
+            </select>
+          </div>
+          <a [routerLink]="['/postagem-del', postagemEdit.id]" class="mb-3">Deseja apagar este tema?</a>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" data-bs-dismiss="modal" class="btn btn-primary"
+          (click)='editarPostagem(postagemEdit.id)'>Salvar alterações</button>
       </div>
     </div>
   </div>

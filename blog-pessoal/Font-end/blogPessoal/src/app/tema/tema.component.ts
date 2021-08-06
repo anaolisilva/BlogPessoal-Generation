@@ -46,12 +46,6 @@ export class TemaComponent implements OnInit {
     })
   }
 
-  // findByIdTemaDelete(id:number){
-  //   this.temaService.getByIdTema(id).subscribe((resp: Tema) => {
-  //     this.temaDelete = resp
-  //   })
-  // }
-
   novoTema() {
     this.temaService.postTema(this.tema).subscribe((resp: Tema)=> {
       this.tema = resp
@@ -83,7 +77,5 @@ export class TemaComponent implements OnInit {
       this.router.navigate(['/tema'])
     })
   }
-
-
 
 }
