@@ -1,0 +1,17 @@
+.fundo-foto {
+  margin: 0;
+  padding: 0;
+  background-image: url('../../../assets/img/fundoAtualizaruser.jpg');
+}
+
+.fundo-transp {
+  background-color: rgba(0, 0, 0, 0.329);
+}
+
+.highlight {
+  background-color: rgba(239, 243, 17, 0.438);
+}
+
+.titulo {
+  text-decoration: dashed;
+}

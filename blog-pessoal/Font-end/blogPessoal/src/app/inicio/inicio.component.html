@@ -51,7 +51,7 @@
             <small><em>Tema: {{item.tema.descricao}}</em></small>
             <p class="card-text text-justify">{{item.corpo}}.</p>
             <div class="card-footer"><small>{{item.data | date: 'dd/MM/yyyy'}}</small></div>
-            <div class="d-flex m-2 text-end">
+            <div *ngIf='item.usuario.usuario == usuario.usuario' class="d-flex m-2 text-end modificacoes">
               <a data-bs-toggle="modal" data-bs-target="#editarPostagem" class="text-info mx-3"
                 (click)='getPostagemById(item.id)'>Editar</a>
               <a [routerLink]="['/postagem-del', item.id]" class="text-danger">Apagar</a>
@@ -72,10 +72,10 @@
             <small><em>Tema: {{item.tema.descricao}}</em></small>
             <p class="card-text text-justify">{{item.corpo}}.</p>
             <div class="card-footer"><small>{{item.data | date: 'dd/MM/yyyy'}}</small></div>
-            <div class="d-flex m-2 text-end">
+            <div class="d-flex m-2 text-end modificacoes">
               <a data-bs-toggle="modal" data-bs-target="#editarPostagem" class="text-info mx-3"
                 (click)='getPostagemById(item.id)'>Editar</a>
-              <a [routerLink]="['/postagem-del', item.id]" class="text-danger">Apagar</a>
+              <a class="text-danger" [routerLink]="['/postagem-del', item.id]" >Apagar</a>
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@
             <hr>
             <p class="card-text text-justify">{{posts.corpo}}.</p>
             <div class="card-footer"><small>{{posts.data | date: 'dd/MM/yyyy'}}</small></div>
-            <div class="d-flex m-2 text-end">
+            <div class="d-flex m-2 text-end modificacoes *ngIf='item.usuario.usuario == usuario.usuario'">
               <a data-bs-toggle="modal" data-bs-target="#editarPostagem" class="text-info mx-3"
                 (click)='getPostagemById(posts.id)'>Editar</a>
               <a [routerLink]="['/postagem-del', posts.id]" class="text-danger">Apagar</a>
@@ -175,7 +175,7 @@
               <option *ngFor='let tema of listaTemas' value="{{tema.id}}">{{tema.descricao}}</option>
             </select>
           </div>
-          <a [routerLink]="['/postagem-del', postagemEdit.id]" class="mb-3">Deseja apagar este tema?</a>
+          <a [routerLink]="['/postagem-del', postagemEdit.id]" data-bs-dismiss="modal" class="mb-3">Deseja apagar esta postagem?</a>
         </form>
       </div>
       <div class="modal-footer">

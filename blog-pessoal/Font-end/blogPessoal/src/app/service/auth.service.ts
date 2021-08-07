@@ -29,6 +29,10 @@ export class AuthService {
 // : --> a classe em maiúscula define o tipo do objeto. O observable é pra conferir se o objeto tem todos os requisitos preenchidos e não mandar requisição pro back-end à toa. No post, colocamos <User> para indicar que é o objeto observável.
 
 
+atualizarUsuario(usuario: User): Observable<User> {
+  return this.http.put<User>(`https://bgp-anaolisilva.herokuapp.com/usuarios/alterar`, usuario, this.tokenUser)
+}
+
 getUsuarioById(id: number): Observable<User>{
   return this.http.get<User>(`https://bgp-anaolisilva.herokuapp.com/usuarios/${id}`, this.tokenUser)
 

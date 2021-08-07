@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
 import { Postagem } from '../model/Postagem';
 import { Tema } from '../model/Tema';
@@ -32,12 +32,15 @@ export class InicioComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    window.scroll(0,0)
+
     if (environment.token == '') {
       this.router.navigate(['/logar'])
     }
 
     this.getAllTemas()
     this.getAllPostagens()
+    this.findUsuarioById()
   }
 
   // Métodos de tema
