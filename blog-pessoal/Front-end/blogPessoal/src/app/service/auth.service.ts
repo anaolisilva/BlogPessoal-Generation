@@ -30,7 +30,7 @@ export class AuthService {
 
 
 atualizarUsuario(usuario: User): Observable<User> {
-  return this.http.put<User>(`https://bgp-anaolisilva.herokuapp.com/usuarios/alterar`, usuario, this.tokenUser)
+  return this.http.put<User>('https://bgp-anaolisilva.herokuapp.com/usuarios/alterar', usuario, this.tokenUser)
 }
 
 getUsuarioById(id: number): Observable<User>{
