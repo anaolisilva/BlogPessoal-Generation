@@ -44,13 +44,19 @@
     <div class="tab-pane fade show active" id="todasPostagens" role="tabpanel" aria-labelledby="nav-todasPostagens-tab">
       <div class="row row-cols-1 row-cols-md-2 g-4">
         <div class="col">
-          <div class="card mt-3 me-3" *ngFor='let item of todasPostagens'>
+          <div class="card mt-3 me-3" *ngFor='let item of todasPostagens | orderBy : key : reverse'>
             <div class="card-header"><em>autor(a): {{item.usuario.usuario}}</em></div>
             <h5 class="card-title text-center">{{item.titulo}}</h5>
             <hr>
             <small><em>Tema: {{item.tema.descricao}}</em></small>
             <p class="card-text text-justify">{{item.corpo}}.</p>
             <div class="card-footer"><small>{{item.data | date: 'dd/MM/yyyy'}}</small></div>
+            <div>
+              <i (click)="getPostagemByIdCurtir(item.id); curtindo(item.id)"
+                class="fa fa-thumbs-up mx-3 my-2 curtir"></i>{{item.curtidas}}
+              <i class="fa fa-thumbs-down ms-5 my-2 curtir"
+                (click)="getPostagemByIdCurtir(item.id); descurtindo(item.id)"></i>
+            </div>
             <div *ngIf='item.usuario.usuario == usuario.usuario' class="d-flex m-2 text-end modificacoes">
               <a data-bs-toggle="modal" data-bs-target="#editarPostagem" class="text-info mx-3"
                 (click)='getPostagemById(item.id)'>Editar</a>
@@ -66,16 +72,22 @@
     <div class="tab-pane fade" id="minhasPostagens" role="tabpanel" aria-labelledby="nav-minhasPostagens-tab">
       <div class="row row-cols-1 row-cols-md-2 g-4">
         <div class="col">
-          <div class="card mt-3 me-3" *ngFor='let item of usuario.postagens'>
+          <div class="card mt-3 me-3" *ngFor='let item of usuario.postagens | orderBy : key : reverse'>
             <h5 class="card-title text-center">{{item.titulo}}</h5>
             <hr>
             <small><em>Tema: {{item.tema.descricao}}</em></small>
             <p class="card-text text-justify">{{item.corpo}}.</p>
             <div class="card-footer"><small>{{item.data | date: 'dd/MM/yyyy'}}</small></div>
+            <div>
+              <i (click)="getPostagemByIdCurtir(item.id); curtindo(item.id)"
+                class="fa fa-thumbs-up mx-3 my-2 curtir"></i>{{item.curtidas}}
+              <i class="fa fa-thumbs-down ms-5 my-2 curtir"
+                (click)="getPostagemByIdCurtir(item.id); descurtindo(item.id)"></i>
+            </div>
             <div class="d-flex m-2 text-end modificacoes">
               <a data-bs-toggle="modal" data-bs-target="#editarPostagem" class="text-info mx-3"
                 (click)='getPostagemById(item.id)'>Editar</a>
-              <a class="text-danger" [routerLink]="['/postagem-del', item.id]" >Apagar</a>
+              <a class="text-danger" [routerLink]="['/postagem-del', item.id]">Apagar</a>
             </div>
           </div>
         </div>
@@ -84,18 +96,36 @@
 
     <!-- Postagens por tema -->
     <div class="tab-pane fade" id="posts-tema" role="tabpanel" aria-labelledby="nav-posts-tema">
+      <div class="row d-flex justify-content-center my-5">
+        <div class="col-md-4">
+          <form>
+            <input [(ngModel)]='descricaoTema' (keyup)='findPostagensByTema()' name="buscaTema" type="text"
+              class="form-control" id="descricao" placeholder="Digite um tema para pesquisar">
+              <div id="avisoTema"> </div>
+          </form>
+        </div>
+
+      </div>
       <div class="row row-cols-1 row-cols-md-2 g-4">
         <div class="col">
-          <div class="card mt-3 me-3" *ngFor='let posts of tema.postagens'>
-            <div class="card-header"><em>autor(a): {{posts.usuario.usuario}}</em></div>
-            <h5 class="card-title text-center">{{posts.titulo}}</h5>
-            <hr>
-            <p class="card-text text-justify">{{posts.corpo}}.</p>
-            <div class="card-footer"><small>{{posts.data | date: 'dd/MM/yyyy'}}</small></div>
-            <div class="d-flex m-2 text-end modificacoes *ngIf='item.usuario.usuario == usuario.usuario'">
-              <a data-bs-toggle="modal" data-bs-target="#editarPostagem" class="text-info mx-3"
-                (click)='getPostagemById(posts.id)'>Editar</a>
-              <a [routerLink]="['/postagem-del', posts.id]" class="text-danger">Apagar</a>
+          <div class="card-columns" *ngFor='let tema of listaTemas'>
+            <div class="card mt-3 me-3" *ngFor='let posts of tema.postagens | orderBy : key : reverse'>
+              <div class="card-header"><em>autor(a): {{posts.usuario.usuario}}</em></div>
+              <h5 class="card-title text-center">{{posts.titulo}}</h5>
+              <hr>
+              <p class="card-text text-justify">{{posts.corpo}}.</p>
+              <div class="card-footer"><small>{{posts.data | date: 'dd/MM/yyyy'}}</small></div>
+              <div>
+                <i (click)="getPostagemByIdCurtir(posts.id); curtindo(posts.id)"
+                  class="fa fa-thumbs-up mx-3 my-2 curtir"></i>{{posts.curtidas}}
+                <i class="fa fa-thumbs-down ms-5 my-2 curtir"
+                  (click)="getPostagemByIdCurtir(posts.id); descurtindo(posts.id)"></i>
+              </div>
+              <!-- <div class="d-flex m-2 text-end modificacoes *ngIf='posts.usuario.usuario == usuario.usuario'">
+                <a data-bs-toggle="modal" data-bs-target="#editarPostagem" class="text-info mx-3"
+                  (click)='getPostagemById(posts.id)'>Editar</a>
+                <a [routerLink]="['/postagem-del', posts.id]" class="text-danger">Apagar</a>
+              </div> -->
             </div>
           </div>
         </div>
@@ -175,7 +205,8 @@
               <option *ngFor='let tema of listaTemas' value="{{tema.id}}">{{tema.descricao}}</option>
             </select>
           </div>
-          <a [routerLink]="['/postagem-del', postagemEdit.id]" data-bs-dismiss="modal" class="mb-3">Deseja apagar esta postagem?</a>
+          <a [routerLink]="['/postagem-del', postagemEdit.id]" data-bs-dismiss="modal" class="mb-3">Deseja apagar esta
+            postagem?</a>
         </form>
       </div>
       <div class="modal-footer">

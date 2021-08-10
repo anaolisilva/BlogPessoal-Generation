@@ -27,6 +27,11 @@ export class TemaService {
     return this.http.get<Tema>(`https://bgp-anaolisilva.herokuapp.com/temas/${id}`, this.tokenvalid)
   }
 
+  getByDescricaoTema(desc: string): Observable<Tema[]> {
+    return this.http.get<Tema[]>(`https://bgp-anaolisilva.herokuapp.com/temas/descricao/${desc}`)
+
+  }
+
   postTema(tema: Tema): Observable<Tema> {
     return this.http.post<Tema>('https://bgp-anaolisilva.herokuapp.com/temas/novo', tema, this.tokenvalid)
   }

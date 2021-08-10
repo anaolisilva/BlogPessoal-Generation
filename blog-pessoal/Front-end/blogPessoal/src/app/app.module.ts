@@ -16,6 +16,7 @@ import { TemaComponent } from './tema/tema.component';
 import { TemaDeleteComponent } from './delete/tema-delete/tema-delete.component';
 import { PostagemDeleteComponent } from './delete/postagem-delete/postagem-delete.component';
 import { UserEditComponent } from './edit/user-edit/user-edit.component';
+import { OrderModule } from 'ngx-order-pipe';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { UserEditComponent } from './edit/user-edit/user-edit.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    OrderModule
   ],
   providers: [{
     provide: LocationStrategy,

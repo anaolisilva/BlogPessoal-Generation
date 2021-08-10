@@ -19,10 +19,15 @@ export class InicioComponent implements OnInit {
   listaTemas: Tema[]
   idTema: number
   tema: Tema = new Tema()
+  descricaoTema: string
   usuario: User = new User()
   usuarioId = environment.id
   todasPostagens: Postagem[]
   postagemEdit: Postagem = new Postagem()
+  postagemCurtir: Postagem = new Postagem()
+
+  key = 'data'
+  reverse = true
 
   constructor(
     private router: Router,
@@ -57,6 +62,21 @@ export class InicioComponent implements OnInit {
     })
   }
 
+  findPostagensByTema() {
+
+    if(this.descricaoTema == '') {
+      this.getAllTemas()
+
+    }
+
+    this.temaService.getByDescricaoTema(this.descricaoTema).subscribe((resp: Tema[]) => {
+      this.listaTemas = resp
+      if (this.listaTemas == []) {
+        document.getElementById("avisoTema")!.innerHTML = "Nenhum tema encontrado!"
+      }
+    })
+  }
+
   //Métodos usuário
   findUsuarioById() {
     this.authService.getUsuarioById(this.usuarioId).subscribe((resp: User) => {
@@ -76,6 +96,12 @@ export class InicioComponent implements OnInit {
   getPostagemById(id: number) {
     this.postagemService.getPostagensById(id).subscribe((resp: Postagem) => {
       this.postagemEdit = resp
+    })
+  }
+
+  getPostagemByIdCurtir(id: number) {
+    this.postagemService.getPostagensById(id).subscribe((resp: Postagem) => {
+      this.postagemCurtir = resp
     })
   }
 
@@ -103,6 +129,24 @@ export class InicioComponent implements OnInit {
       this.getAllPostagens()
       this.findUsuarioById()
       this.postagemEdit = new Postagem()
+    })
+  }
+
+
+  curtindo(id:number) {
+    this.postagemService.curtir(id).subscribe((resp: Postagem) => {
+      this.postagemCurtir = resp
+      console.log(this.postagemCurtir)
+      this.getAllPostagens()
+      this.postagemCurtir = new Postagem()
+    })
+  }
+
+  descurtindo(id:number) {
+    this.postagemService.descurtir(id).subscribe((resp: Postagem) => {
+      this.postagemCurtir = resp
+      this.getAllPostagens()
+      this.postagemCurtir = new Postagem()
     })
   }
 
