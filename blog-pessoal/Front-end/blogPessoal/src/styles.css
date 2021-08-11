@@ -19,6 +19,10 @@
   font-size: 7rem;
 }
 
+.fs-xl {
+  font-size: 5rem;
+}
+
 html {
   scroll-behavior: smooth;
 }
