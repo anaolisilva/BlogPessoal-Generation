@@ -1,0 +1,9 @@
+.modificacoes a {
+  cursor:pointer !important;
+}
+
+.curtir {
+  cursor: pointer;
+  font-size: 1.3rem;
+  color: rgb(236, 221, 10);
+}

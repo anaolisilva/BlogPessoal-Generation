@@ -1,0 +1,31 @@
+<div class="container mb-5 mt-5 w-50">
+
+  <div class="row mb-5">
+    <div class="col-md-12">
+      <h1 class="text-center text-secondary">Apagar Postagem</h1>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-12">
+      <h4 class="text-center text-danger">Você tem certeza que deseja apagar a postagem <strong>{{postagem.id}}</strong>, com o seguinte conteúdo: </h4>
+      <div class="card mt-3 me-3">
+        <div class="card-header"><em>autor(a): {{postagem.usuario.usuario}}</em></div>
+        <h5 class="card-title text-center">{{postagem.titulo}}</h5>
+        <hr>
+        <small><em>Tema: {{postagem.tema.descricao}}</em></small>
+        <p class="card-text text-justify">{{postagem.corpo}}.</p>
+        <div class="card-footer"><small>{{postagem.data | date: 'dd/MM/yyyy'}}</small></div>
+    </div>
+  </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 d-flex justify-content-center">
+      <button routerLink='/home' class="btn btn-outline-secondary mr-4"  >Não</button>
+      <button (click)='apagar()' class="btn btn-dark" >Sim</button>
+    </div>
+  </div>
+
+</div>
+
